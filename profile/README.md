@@ -37,6 +37,8 @@ flowchart TD
     F -->|collection and derivation flows| D
     F -->|guards and schemas| H
     F -->|analysis execution| V
+    R -->|session recording and evidence readers| H
+    R -->|analysis provenance readers| V
 
     subgraph views["Inspect recorded runs"]
         E["Flow Lens / Explainable UI<br/>workflow steps and state"]
@@ -47,12 +49,29 @@ flowchart TD
     F -. workflow snapshots .-> E
     A -. agent recordings .-> L
     A -. adapted agent traces .-> T
+    R -->|replay and recorded state| L
+
+    subgraph pilot["Source-only pilot — not published"]
+        P["Record Lens<br/>shared saved-record viewer"]
+    end
+    F -. saved workflow fixtures .-> P
+    H -. saved session fixtures .-> P
+    R -->|record readers| P
 ```
 
 Solid arrows show selected runtime building blocks; dotted arrows show recorded
 inputs supplied to a view. This is not an exhaustive dependency map. Each viewer
 has its own input contract and supported package versions; these are not all
 interchangeable record formats.
+
+HCI's session recorder uses Foottrace directly, without executing a FootPrint
+flowchart; its newer action ledger remains separate. Viz reads Foottrace analysis
+evidence, while its interaction history and replay use Viz's own record format.
+The [Record Lens pilot](https://github.com/footprintjs/explainable-ui/blob/main/pilots/record-lens/README.md)
+reads saved workflow and HCI records without either producer installed. It has no
+published entry point yet. Replaying recorded steps and state does not require an
+authored flowchart; drawing the complete workflow, including untaken branches,
+requires that structure to be saved separately.
 
 | Project | Role | Links |
 |---|---|---|
