@@ -40,7 +40,7 @@ flowchart TD
         A["AgentFootprint<br/>agents and configurable answer checks"]
         D["DataPipeline<br/>collect and derive observations"]
         H["HACI Footprint<br/>declared app actions and journeys"]
-        V["VizFootprint · pre-alpha<br/>interactive analysis and provenance"]
+        V["VizFootprint · Beta / experimental<br/>interactive analysis and provenance"]
         C["ContextFootprint<br/>assertion identity and conflicts"]
         C -->|context comparison| A
     end
@@ -93,7 +93,7 @@ requires that structure to be saved separately.
 | **ContextFootprint** | compare host-supplied assertions by identity and find conflicts; does not decide which assertion is true | [repo and docs](https://github.com/footprintjs/contextfootprint) · [npm](https://www.npmjs.com/package/contextfootprint) |
 | **DataPipeline** (`footprintjs-datapipeline`) | collect observations, derive new ones and retain their evidence through FootPrint flows | [published package and README](https://www.npmjs.com/package/footprintjs-datapipeline) |
 | **HACI Footprint** (`hcifootprint`) | expose declared app actions and journeys for people and agents | [home and docs](https://footprintjs.github.io/hcifootprint/) · [repo](https://github.com/footprintjs/hcifootprint) · [npm](https://www.npmjs.com/package/hcifootprint) |
-| **VizFootprint** | interactive visualization and analysis with selection provenance; **pre-alpha, source checkout** | [repo and docs](https://github.com/footprintjs/vizfootprint) |
+| **VizFootprint** | interactive visualization and analysis with selection provenance; **Beta, experimental, source checkout** | [repo and docs](https://github.com/footprintjs/vizfootprint) |
 | **Flow Lens / Explainable UI** | inspect a workflow's recorded steps and state | [demo](https://footprintjs.github.io/explainable-ui/) · [repo](https://github.com/footprintjs/explainable-ui) · [npm](https://www.npmjs.com/package/footprint-explainable-ui) |
 | **Why Lens** (`agentfootprint-lens`) | inspect an agent's recorded context, tool calls, decisions and cost | [repo and docs](https://github.com/footprintjs/agentfootprint-lens) · [npm](https://www.npmjs.com/package/agentfootprint-lens) |
 | **Story Lens / Thinking UI** | replay an adapted agent trace as a scrubbable story | [demo](https://footprintjs.github.io/agentThinkingUI/) · [repo](https://github.com/footprintjs/agentThinkingUI) · [npm](https://www.npmjs.com/package/agentthinkingui) |
@@ -107,6 +107,13 @@ AgentFootprint `^9.48.0`; it does not declare compatibility with newer AgentFoot
 adds typed model references, evaluation receipts and release checks around existing trainers. Use its
 [source-archive quickstart](https://github.com/footprintjs/footprintjs-ml/blob/main/QUICKSTART.md);
 a version in source is not a claim that an npm release is available.
+
+**Unpublished libraries — Beta:** [Features](https://github.com/footprintjs/footprint-features),
+[School](https://github.com/footprintjs/school-footprint),
+[Agent Explainable UI](https://github.com/footprintjs/agent-explainable-ui),
+[FootPrint ML](https://github.com/footprintjs/footprintjs-ml) and
+[VizFootprint](https://github.com/footprintjs/vizfootprint) have no npm release.
+Use each repository's source setup or archive instructions. APIs may change; School requires a compatible containing workspace, and VizFootprint remains experimental with npm publication disabled.
 
 **Presentation tools:** [StoryDeck](https://github.com/footprintjs/storydeck) presents structured content
 as articles, scrolling stories and slides. [StoryReel](https://github.com/footprintjs/storyreel) builds
