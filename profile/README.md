@@ -14,6 +14,18 @@ records they produce.
 
 ---
 
+## Choose a starting point
+
+[Backend workflows](https://github.com/footprintjs/footPrint) ·
+[AI agents](https://github.com/footprintjs/agentfootprint) ·
+[ML workflow evidence — Beta](https://github.com/footprintjs/footprintjs-ml/blob/main/QUICKSTART.md) ·
+[Data collection and derivation](https://www.npmjs.com/package/footprintjs-datapipeline) ·
+[Slides](https://github.com/footprintjs/storydeck) ·
+[Teaching films](https://github.com/footprintjs/storyreel)
+
+Choose the library for the job, then check its install instructions and compatible package versions.
+Beta and source-checkout projects are labelled separately from published packages.
+
 ## The ecosystem — as its own flowchart
 
 ```mermaid
@@ -88,11 +100,25 @@ requires that structure to be saved separately.
 
 For a combined agent-recording screen, [footprint-viewer](https://github.com/footprintjs/footprint-viewer)
 wires the lenses to one cursor. Its published `0.1.0` peer range targets
-AgentFootprint `^9.48.0`; it is not the current AgentFootprint 11 viewer recommendation.
+AgentFootprint `^9.48.0`; it does not declare compatibility with newer AgentFootprint majors. Start with
+[Lens's own documentation](https://github.com/footprintjs/agentfootprint-lens) when choosing a viewer for a current agent application.
+
+**ML workflows — Beta:** [footprintjs-ml](https://github.com/footprintjs/footprintjs-ml)
+adds typed model references, evaluation receipts and release checks around existing trainers. Use its
+[source-archive quickstart](https://github.com/footprintjs/footprintjs-ml/blob/main/QUICKSTART.md);
+a version in source is not a claim that an npm release is available.
+
+**Presentation tools:** [StoryDeck](https://github.com/footprintjs/storydeck) presents structured content
+as articles, scrolling stories and slides. [StoryReel](https://github.com/footprintjs/storyreel) builds
+teaching films from a storyboard and recipe; [footprint-story](https://github.com/footprintjs/footprint-story)
+provides shared narration, captions and motion data. Their own READMEs describe supported outputs and setup.
+
+[Browse every public repository](https://github.com/orgs/footprintjs/repositories) for domain libraries,
+source projects and examples; they are not all published npm packages.
 
 Examples of the wider ecosystem include the
 [AssessmentFootprint workbench](https://github.com/footprintjs/assessmentfootprint),
-[agent samples](https://github.com/footprintjs/agent-samples), and
+[current agent examples](https://github.com/footprintjs/agentfootprint/tree/main/examples), and
 [VizFootprint demos](https://github.com/footprintjs/vizfootprint-demos).
 
 ---
@@ -117,4 +143,4 @@ do not reveal a model's private reasoning or make every answer verified.
 
 ---
 
-<sub>open source · [MIT](https://github.com/footprintjs/footPrint/blob/main/LICENSE) · © 2024–present [Sanjay Krishna Anbalagan](https://github.com/sanjay1909)</sub>
+<sub>open source · check each project's own license · © 2024–present [Sanjay Krishna Anbalagan](https://github.com/sanjay1909)</sub>
