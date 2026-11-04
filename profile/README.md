@@ -1,4 +1,4 @@
-### The flowchart pattern for software — systems that explain themselves.
+### Execution provenance for AI agents and software — systems that explain themselves.
 
 **→ [footprintjs.github.io](https://footprintjs.github.io/)**
 
