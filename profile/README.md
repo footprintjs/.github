@@ -14,13 +14,20 @@ records they produce.
 
 The record is a graph: facts joined by the edges that connect them, so a person or
 a model can walk back from a result to only the steps behind it instead of rereading
-everything. The edges come from three places. **Bind:** applications built on a
-framework already carry state transitions; HACI Footprint and VizFootprint add the
-action binding that turns them into decision edges. **Own:** workflows written with
-FootPrint, AgentFootprint or footprintjs-ml record their edges as they run. **Recover:**
-logs and metrics from systems we did not build carry no edges; stitching them afterwards
-is experimental work, and every edge that cannot be recovered is kept as a labelled gap
-rather than guessed. Foottrace is the walk layer all three write to.
+everything. There are two ways to get those edges.
+
+**Stitched by default.** Software built in the pattern keeps its edges as it runs:
+FootPrint workflows, AgentFootprint agents, Blueprint, Smallbusiness and StoryReel.
+
+**Stitched in code.** You cannot rebuild React, a trainer or a device fleet, so you stitch
+programmatically and give every gap its reason. HACI Footprint and VizFootprint bind a
+framework's events into actions. DataPipeline does the same at the collector level on
+on-prem devices. footprintjs-ml is a hybrid: FootPrint coordinates the workflow and your
+trainer stays yours.
+
+Either way you get a stitched record you can walk back and replay. A side effect is an
+audit trail for security monitoring. Default stitching can still have gaps, and record
+formats and capture limits differ by library.
 
 ---
 
@@ -46,19 +53,25 @@ flowchart TD
         R -->|record layer| F
     end
 
-    subgraph libraries["Build with the record"]
+    subgraph bydefault["Stitched by default"]
         A["AgentFootprint<br/>agents and configurable answer checks"]
-        D["DataPipeline<br/>collect and derive observations"]
+    end
+
+    C["ContextFootprint<br/>assertion identity and conflicts"]
+    C -->|context comparison| A
+
+    subgraph incode["Stitched in code"]
         H["HACI Footprint<br/>declared app actions and journeys"]
         V["VizFootprint · Beta / experimental<br/>interactive analysis and provenance"]
-        C["ContextFootprint<br/>assertion identity and conflicts"]
-        C -->|context comparison| A
+        D["DataPipeline<br/>collect and derive observations"]
+        M["footprintjs-ml · Beta, hybrid<br/>workflow evidence around existing trainers"]
     end
 
     F -->|agent flows| A
     F -->|collection and derivation flows| D
     F -->|guards and schemas| H
     F -->|analysis execution| V
+    F -->|coordinates the workflow| M
     R -->|session recording and evidence readers| H
     R -->|analysis provenance readers| V
 
@@ -79,11 +92,6 @@ flowchart TD
     F -. saved workflow fixtures .-> P
     H -. saved session fixtures .-> P
     R -->|record readers| P
-
-    subgraph recovered["Recovered records — experimental, not published"]
-        G["Log and metric stitching<br/>edges recovered after the fact, gaps labelled"]
-    end
-    G -. recovered records and gap codes .-> R
 ```
 
 Solid arrows show selected runtime building blocks; dotted arrows show recorded
@@ -147,7 +155,7 @@ Examples of the wider ecosystem include the
 
 ## Principles
 
-1. **Collect during execution where the code is ours.** Record tracked reads, writes and decisions while the workflow runs. Where it is not — logs and metrics from systems we did not build — stitch the edges afterwards and label every edge that could not be recovered with the reason.
+1. **Stitch by default where the code is ours.** Record tracked reads, writes and decisions while the workflow runs. Where it is not, stitch in code, and give every edge that could not be made its reason.
 2. **Keep the record and its limits.** Foottrace readers query retained evidence; missing or withheld evidence stays a gap.
 3. **Choose the view for the record.** Use the appropriate adapter and compatible versions to inspect workflow steps, agent decisions or the recorded story.
 
