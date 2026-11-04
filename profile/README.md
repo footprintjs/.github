@@ -12,6 +12,16 @@ and interactive analysis. **Foottrace owns the execution-record layer; FootPrint
 owns the engine.** The libraries below build on those foundations or present the
 records they produce.
 
+The record is a graph: facts joined by the edges that connect them, so a person or
+a model can walk back from a result to only the steps behind it instead of rereading
+everything. The edges come from three places. **Bind:** applications built on a
+framework already carry state transitions; HACI Footprint and VizFootprint add the
+action binding that turns them into decision edges. **Own:** workflows written with
+FootPrint, AgentFootprint or footprintjs-ml record their edges as they run. **Recover:**
+logs and metrics from systems we did not build carry no edges; stitching them afterwards
+is experimental work, and every edge that cannot be recovered is kept as a labelled gap
+rather than guessed. Foottrace is the walk layer all three write to.
+
 ---
 
 ## Choose a starting point
@@ -69,6 +79,11 @@ flowchart TD
     F -. saved workflow fixtures .-> P
     H -. saved session fixtures .-> P
     R -->|record readers| P
+
+    subgraph recovered["Recovered records — experimental, not published"]
+        G["Log and metric stitching<br/>edges recovered after the fact, gaps labelled"]
+    end
+    G -. recovered records and gap codes .-> R
 ```
 
 Solid arrows show selected runtime building blocks; dotted arrows show recorded
@@ -132,7 +147,7 @@ Examples of the wider ecosystem include the
 
 ## Principles
 
-1. **Collect during execution.** Record tracked reads, writes and decisions while the workflow runs.
+1. **Collect during execution where the code is ours.** Record tracked reads, writes and decisions while the workflow runs. Where it is not — logs and metrics from systems we did not build — stitch the edges afterwards and label every edge that could not be recovered with the reason.
 2. **Keep the record and its limits.** Foottrace readers query retained evidence; missing or withheld evidence stays a gap.
 3. **Choose the view for the record.** Use the appropriate adapter and compatible versions to inspect workflow steps, agent decisions or the recorded story.
 
